@@ -1,5 +1,5 @@
 .info {
-    margin-left: 120px;
+    margin-left: 140px;
     padding-top: 20px;
     box-sizing: border-box;
 }
@@ -11,19 +11,18 @@
 [class*="col-"] {
     float: left;
 }
-.col-1 {width: 8.33%;}
-.col-2 {width: 20%;}
-.col-3 {width: 27%;}
-.col-4 {width: 33.33%;}
-.col-5 {width: 41.66%;}
-.col-6 {width: 50%;}
-.col-7 {width: 55.33%;}
-.col-8 {width: 69.66%;}
-.col-9 {width: 70%;}
-.col-10 {width: 83.33%;}
-.col-11 {width: 91.66%;}
-.col-12 {width: 100%;}
-.col-12 {width: 100%;}
+.col-1 {width: 100px;}
+.col-2 {width: 275px;}
+.col-3 {width: 300px;}
+.col-4 {width: 375px;}
+.col-5 {width: 465px;}
+.col-6 {width: 500px}
+.col-7 {width: 550px;}
+.col-8 {width: 664px;}
+.col-9 {width: 720px;}
+.col-10 {width: 830px%;}
+.col-11 {width: 910px%;}
+.col-12 {width: 100px;}
 html {
     font-family: "Lucida Sans", sans-serif;
 }
@@ -44,7 +43,7 @@ html {
 .status {
     background-color: #fcf8e3;
     color: #000;
-    padding: 15px;
+    padding: 15px; 
     border: 2px #000 solid;
     margin-bottom: 15px;
 }
@@ -63,20 +62,6 @@ html {
     font-weight: 400;
     line-height: 20px;
     color: black;
-}
-.status a:link, a:visited {
-    background-color: #fed136;
-    color: black;
-    padding: 5px 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-}
-
-
-.status a:hover, a:active {
-    background-color: black;
-    color: white;
 }
 .group li:hover {
     background-color: #fcf8e3;
@@ -115,12 +100,13 @@ html {
     text-align: center;
     text-decoration: none;
     display: inline-block;
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.2), 1px 1px 4px rgba(0,0,0,0.3);
 }
 
 
 .events a:hover, a:active {
-    background-color: black;
-    color: white;
+    background-color: #fed136;
+    color: black;
 }
 .rightside {
     border: 2px #000 solid;
@@ -132,16 +118,13 @@ html {
     overflow: auto;
     height: 300px;
 }
-.rightside a:link, a:visited {
+.rightside a:link {
     color: black;
     text-align: center;
     display: inline-block;
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.2), 1px 1px 4px rgba(0,0,0,0.3);
 }
 
-
-.rightside a:hover, a:active {
-    color: #fed136;
-}
 .menu ul {
     list-style-type: none;
     margin: 0;
@@ -150,7 +133,7 @@ html {
 .menu li {
     padding: 8px;
     margin-bottom: 7px;
-    background-color: #333;
+    background-color: #000000;
     color: #fcf8e3;
     box-shadow: 0 1px 3px #333, 0 1px 2px #333;
 }
@@ -178,7 +161,7 @@ a.status {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
+    background-color: #000;
     margin-left: 30px;
     width: 75.3%;
     }

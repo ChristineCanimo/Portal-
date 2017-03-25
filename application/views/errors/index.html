@@ -6,6 +6,6 @@
 <body>
 
 <p>Directory access is forbidden.</p>
-
+SELECT * FROM `notifs` JOIN members ON notifs.to_whom=members.idnumber JOIN grpstatus ON notifs.grpstat_id=grpstatus.grpstat_id JOIN grp_comments ON grpstatus.grpstat_id=grp_comments.grpstat_id JOIN groups ON grpstatus.group_id=groups.group_id WHERE notifs.idnumber != "28" 
 </body>
 </html>

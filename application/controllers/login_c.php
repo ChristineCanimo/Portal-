@@ -17,7 +17,7 @@ class Login_c extends CI_Controller {
 	{
 		$li = $this->session->userdata('logged_in');
 		if($li == TRUE){
-			redirect ('index.php/home/index');
+			redirect ('index.php/home/home');
 		}
 		else{
 			$this->load->view('login_v');
@@ -37,9 +37,9 @@ class Login_c extends CI_Controller {
 	// Check validation for user input in SignUp form
 	$this->form_validation->set_rules('username', 'Username', 'trim|required|is_unique[users.username]');
 	$this->form_validation->set_rules('password', 'Password', 'trim|required');
-	$this->form_validation->set_rules('firstname', 'First Name', 'trim|required');
+	$this->form_validation->set_rules('fname', 'First Name', 'trim|required');
 	$this->form_validation->set_rules('mname', 'Middle Name', 'trim|required');
-	$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required');
+	$this->form_validation->set_rules('lname', 'Last Name', 'trim|required');
 	$this->form_validation->set_rules('address', 'Address', 'trim|required');
 	$this->form_validation->set_rules('e_address', 'Email', 'trim|required');
 	$this->form_validation->set_rules('contact', 'Contact', 'trim|required');
@@ -50,20 +50,22 @@ class Login_c extends CI_Controller {
 	$data = array(
 	'username' => $this->input->post('username'),
 	'password' => $this->input->post('password'),
-	'fname' => $this->input->post('firstname'),
+	'fname' => $this->input->post('fname'),
 	'mname' => $this->input->post('mname'),
-	'lname' => $this->input->post('lastname'),
+	'lname' => $this->input->post('lname'),
 	'gender' => $this->input->post('gender'),
 	'address' => $this->input->post('address'),
 	'emailadd' => $this->input->post('e_address'),
 	'contact' => $this->input->post('contact'),
 	'bday' => $this->input->post('bday'),
+	'date_added' => $this->input->post('date_added'),
+	'date_updated' => $this->input->post('date_updated'),
 
 	);
 
 	if($this->users_model->check_user_exists($data['username'])){
 		$data['exist'] = "The username already exists";
-		$this->load->view('studentregister', $data);
+		$this->load->view('usernameexist', $data);
 	}else{
 		$result = $this->users_model->registration_insert($data);
 	if ($result == TRUE) {
@@ -79,7 +81,7 @@ class Login_c extends CI_Controller {
 	// Check for user login process
 
 	
- 	 public function process(){
+ 	public function process(){
 
 			$this->load->helper(array('form', 'url'));
 			$this->load->library('form_validation');
@@ -113,7 +115,8 @@ class Login_c extends CI_Controller {
 			        'idnumber' => $result['0']['idnumber']
 					);
 					$this->session->set_userdata($newdata);
-					redirect ('index.php/home/index');
+					$this->users_model->history();
+					redirect ('home/home');
 				}
 				
 			}
@@ -122,6 +125,7 @@ class Login_c extends CI_Controller {
 		
 	}
 
+
 	// Logout from admin page
 	public function logout() {
 	$this->session->unset_userdata('logged_in');
@@ -129,14 +133,10 @@ class Login_c extends CI_Controller {
 	$sess_array = array(
 	'username' => ''
 	);
+	$this->users_model->history_out();
 	$this->session->unset_userdata('login_v', $sess_array);
 	$data['message_display'] = 'Successfully Logout';
 	redirect ('', $data);
-	}
-
-	public function iloginmo()
-	{
-		redirect('index.php/home/homie');
 	}
 	public function balikmo()
 	{
@@ -146,16 +146,45 @@ class Login_c extends CI_Controller {
 	{
 		$this->load->view('xlogin');
 	}
-	public function status(){
-		$this->load->model('post_model');
-			
-			if($this->input->post()) {
-			$data = $this->input->post();	
-
-			$result = $this->post_model->post_status($data);
-			redirect('home/index');
-		}
-	}
 	
+		public function unittesting(){
+		$this->load->library('unit_test');
+		$this->load->model('users_model');
+
+		$username = 'tintin';
+		$password = 'ten';
+		$test_name = 'Login Success';
+		$test_note = 'Test login function when input is correct';
+
+		$result = $this->users_model->login($username, $password);
+
+		echo $this->unit->run($result, 'is_array', $test_name, $test_note);
+		
+		$username = 'tintin';
+		$password = 'tenasdf';
+		$test_name = 'Login Failed';
+		$test_note = 'Test login function when input is fail';
+
+		$result = $this->users_model->login($username, $password);
+
+		echo $this->unit->run($result, 'is_false', $test_name, $test_note);
+
+
+		$username = 'tintin';
+		$test_name = 'Get User Info';
+		$test_note = 'Test read user info';
+
+		$result = $this->users_model->read_user_information($username);
+
+		echo $this->unit->run($result, 'is_array', $test_name, $test_note);
+
+		$username = 'tintinasdfasdfa';
+		$test_name = 'Get Wrong User Info';
+		$test_note = 'Test read user info';
+
+		$result = $this->users_model->read_user_information($username);
+
+		echo $this->unit->run($result, 'is_false', $test_name, $test_note);
+	}
 
 }

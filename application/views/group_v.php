@@ -7,7 +7,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Home</title>
+    <?php foreach($names as $name){?>
+  <title><?php echo $name->group_name." ";?> </title>
+  <?php }?>
     <style> 
 #rcorners {
     background: #000;
@@ -19,11 +21,10 @@
     margin-right: 10px;  
 }
 #rcorner {
-    background: #000;
+    background: #000; 
     padding: 2px; 
-    width: 100%;
-    height: 100%;
-    float: right;  
+    width: 65px;
+    height: left;  
     margin-left: 0px;
     margin-right: 0px;  
 }
@@ -32,6 +33,7 @@
         <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url()?>css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo base_url()?>css/design.css" rel="stylesheet">
+    <link href="<?php echo base_url()?>css/notification.css" rel="stylesheet">
     <link href="<?php echo base_url()?>css/font.css" rel="stylesheet">
     <link href="<?php echo base_url()?>css/profile.css" rel="stylesheet">
     <link href="<?php echo base_url()?>css/gridprofiles.css" rel="stylesheet">
@@ -48,6 +50,21 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script> 
+$(document).ready(function(){
+    $("#flip").click(function(){
+        $("#panel").slideToggle("slow");
+    });
+});
+</script>
+<script> 
+$(document).ready(function(){
+    $("#taas").click(function(){
+        $("#baba").slideToggle("slow");
+    });
+});
+</script>
   </head>
   <style> 
 #rcorners1 {
@@ -55,6 +72,7 @@
     width: 1340px;
     height: 400px;
     float: right;  
+    border-radius: 0%;
     display: block;
     overflow: hidden;
 }
@@ -86,11 +104,75 @@
     margin-left: 350px;
     margin-top: 100px;
 }
+.modal-dialog3 {
+    width: 500px;
+    height: 100%;
+    margin-left: 404px;
+    margin-top: 130px;
+}
 img
 {
-  width: 1340px;
-  height: 410px;
+  width: 65px;
+  height: 65px;
   vertical-align:baseline;
+}
+textarea {
+    resize: none;
+}
+#panel, #flip {
+    padding: 5px;
+    background-color: #fcf8e3;
+    border: solid 1px #c3c3c3;
+    width: 267px;
+}
+
+#panel {
+    padding: 5px;
+    display: none;
+    overflow: auto;
+    height: 200px;
+}
+figure.dp {
+    background-position: center center;
+    background-size: cover;
+    /* border: 5px #efefef solid; */
+    border-radius: 20%;
+    /* bottom: -50px; */
+    /* box-shadow: inset 1px 1px 3px rgba(0,0,0,0.2), 1px 1px 4px rgba(0,0,0,0.3); */
+    height: 60px;
+    left: 150px;
+    /* position: absolute; */
+    width: 60px;
+}
+#taas {
+    padding: 5px;
+    background-color: #fcf8e3;
+    border: solid 1px #c3c3c3;
+    width: 267px;
+    width: 260px;
+    padding-bottom: 20px;
+}
+
+.add {
+    background: #e9ebee;
+    border: 1px solid #9cb4d8;
+    border-radius: 2px;
+    color: #162643;
+    cursor: default;
+    display: block;
+    float: left;
+    height: 20px;
+    margin: 0 4px 4px 0;
+    padding: 0 3px;
+    position: relative;
+    white-space: nowrap;
+}
+.add .remove {
+    left: 1px;
+    margin: 0;
+    outline: none;
+    position: relative;
+    top: 2px;
 }
 @media (min-width: 768px)
 {header {
@@ -100,13 +182,8 @@ img
   position: relative;
   width:auto;
 }}
-table, td{
-    padding: 80px;
-    text-align: center;
-    float: center;
-}
 </style>
-  <body>
+  <body style="background-color: #ece8ce">
         <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top">
     <div id="rcorners">
@@ -120,27 +197,151 @@ table, td{
           <span class="icon-bar"></span>
         </button>
         </div>
-          <a class="navbar-brand page-scroll" href="index"><b>StockOverflowing</b></a>
+          <a class="navbar-brand page-scroll" href="<?php echo base_url() ?>home/home"><b>StockOverflowing</b></a>
           <ul class="nav navbar-nav navbar-left">
-          <form class="navbar-form" role="search">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search" name="q">
-              <div class="input-group-btn">
-                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+          <form class="navbar-form" role="search" action="<?php echo base_url(); ?>home/search" method="post">
+              <div class="input-group" style="width:250%">
+                <input type="text" class="form-control" placeholder="Search" name="q">
+                <div class="input-group-btn">
+                  <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
               </div>
-            </div>
-          </form>
+            </form>
         </ul>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-              <li class="active"><a href="index"><i class="fa fa-user"> PROFILE</a></i></li>
-              <li><a href="#"><i class="fa fa-globe"> NOTIFICATIONS</a></i></li>
-              <li><a href="aboutie"><i class="fa fa-exclamation-circle"> ABOUT</a></i></li>
+          <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><?php foreach($cntnotifs as $cntnotif){?>
+            (<font color="white"><b>*</b></font>)<i style="font-size:20px" class="fa fa-globe"></i><?php }?></a>
+            <ul class="dropdown-menu notify-drop">
+              <div class="notify-drop-title">
+                <div class="row">
+                <?php foreach($countnotifs as $count){?>
+                  <div class="col-md-6 col-sm-6 col-xs-6">Notifications (<b>*</b>)</div>
+                   <?php }?>
+                    <div class="col-md-6 col-sm-6 col-xs-6 text-right"><a href="" class="rIcon allRead" data-tooltip="tooltip" data-placement="bottom" title="tümü okundu."><i class="fa fa-dot-circle-o"></i></a></div>
+                </div>
+              </div>
+              <div class="drop-content">
+
+              
+
+              <?php foreach($notifgrpdetails as $notifgrpdetail){?>
+                <?php if($notifgrpdetail->type=='grpcomment') { ?>
+
+                <li>
+                  <div class="col-md-3 col-sm-3 col-xs-3">
+                    <figure class="dp" 
+                      style="background-image: url('<?php echo base_url();?>images/user<?php echo $notifgrpdetail->idnumber;?>_.jpg')">
+                    </figure>
+                  </div>
+                  <div class="col-md-9 col-sm-9 col-xs-9 pd-l0"><a href="profile/<?php echo $userid =  $notifgrpdetail->idnumber." " ;?>"><?php echo $notifgrpdetail->fname." ";?><?php echo $notifgrpdetail->lname." ";?></a>commented on the post in <?php foreach($getgrpcomments as $getgrpcomment){?><a href="<?php echo base_url();?>index.php/home/group/<?php echo $grp_id =  $getgrpcomment->group_id." " ;?>" style="color: red;text-transform: lowercase;"><?php $a = $notifgrpdetail->grpstat_id; $b = $getgrpcomment->grpstat_id; if($a==$b) { echo $getgrpcomment->group_name." ";?>.<?php } ?></a><?php } ?>
+                  <a href="" class=""><i class="fa fa-settings"></i></a>
+                    <hr>
+                    <p class="time"><?php $time = new DateTime($notifgrpdetail->datetime);
+                    $date = $time->format('n.j.Y');
+                    $time2 = $time->format('H:i:s');
+                    echo $date." | ".$time2;?></p>
+                  </div>
+                </li>
+                <?php } ?>
+
+                <?php if($notifgrpdetail->type=='grppost') { ?>
+
+                <li>
+                  <div class="col-md-3 col-sm-3 col-xs-3">
+                    <figure class="dp" 
+                      style="background-image: url('<?php echo base_url();?>images/user<?php echo $notifgrpdetail->idnumber;?>_.jpg')">
+                    </figure>
+                  </div>
+                  <div class="col-md-9 col-sm-9 col-xs-9 pd-l0"><a href="profile/<?php echo $userid =  $notifgrpdetail->idnumber." " ;?>"><?php echo $notifgrpdetail->fname." ";?><?php echo $notifgrpdetail->lname." ";?></a>Posted on the group <?php foreach($get_grpposts as $get_grppost){?><a href="<?php echo base_url();?>index.php/home/group/<?php echo $grp_id =  $get_grppost->group_id." " ;?>" style="color: red;text-transform: lowercase;"><?php echo $get_grppost->group_name." ";?>.</a><?php } ?>
+                  <a href="" class=""><i class="fa fa-settings"></i></a>
+                    <hr>
+                    <p class="time"><?php $time = new DateTime($notifgrpdetail->datetime);
+                    $date = $time->format('n.j.Y');
+                    $time2 = $time->format('H:i:s');
+                    echo $date." | ".$time2;?></p>
+                  </div>
+                </li>
+                <?php } ?>
+                <?php } ?>
+
+              <?php foreach($notifdetails as $notifdetail){?>
+                <?php if($notifdetail->type=='comment') { ?>
+
+                <li>
+                  <div class="col-md-3 col-sm-3 col-xs-3">
+                    <figure class="dp" 
+                      style="background-image: url('<?php echo base_url();?>images/user<?php echo $notifdetail->idnumber;?>_.jpg')">
+                    </figure>
+                  </div>
+                  <div class="col-md-9 col-sm-9 col-xs-9 pd-l0"><a href="profile/<?php echo $userid =  $notifdetail->idnumber." " ;?>"><?php echo $notifdetail->fname." ";?><?php echo $notifdetail->lname." ";?></a> commented on this<a href="<?php echo base_url();?>home/post_commented/<?php echo $notifdetail->stat_id." ";?>" style="color: red;text-transform: lowercase;"> post</a>
+                  <a href="" class=""><i class="fa fa-settings"></i></a>
+                    <hr>
+                    <p class="time"><?php $time = new DateTime($notifdetail->datetime);
+                    $date = $time->format('n.j.Y');
+                    $time2 = $time->format('H:i:s');
+                    echo $date." | ".$time2;?></p>
+                  </div>
+                </li>
+                <?php } ?>
+
+                <?php if($notifdetail->type=='member') { ?>
+
+                <li>
+                  <div class="col-md-3 col-sm-3 col-xs-3">
+                    <figure class="dp" 
+                      style="background-image: url('<?php echo base_url();?>images/user<?php echo $notifdetail->idnumber;?>_.jpg')">
+                    </figure>
+                  </div>
+                  <div class="col-md-9 col-sm-9 col-xs-9 pd-l0"><a href="profile/<?php echo $userid =  $notifdetail->idnumber." " ;?>"><?php echo $notifdetail->fname." ";?><?php echo $notifdetail->lname." ";?></a>Added you to a group <a href="<?php echo base_url();?>home/group/<?php echo $grp_id =  $notifdetail->group_id." " ;?>" style="color: red;text-transform: lowercase;">
+                  <?php foreach($getgroups as $getgroup){?>
+                  <?php $a = $notifdetail->group_id; $b = $getgroup->group_id; if($a==$b) { echo $getgroup->group_name." ";?>.<?php } ?><?php } ?></a>
+                  <a href="" class=""><i class="fa fa-settings"></i></a>
+                    <hr>
+                    <p class="time"><?php $time = new DateTime($notifdetail->datetime);
+                    $date = $time->format('n.j.Y');
+                    $time2 = $time->format('H:i:s');
+                    echo $date." | ".$time2;?></p>
+                  </div>
+                </li>
+                <?php } ?>
+
+                <?php if($notifdetail->type=='post') { ?>
+
+                <li>
+                  <div class="col-md-3 col-sm-3 col-xs-3">
+                    <figure class="dp" 
+                      style="background-image: url('<?php echo base_url();?>images/user<?php echo $notifdetail->idnumber;?>_.jpg')">
+                    </figure>
+                  </div>
+                  <div class="col-md-9 col-sm-9 col-xs-9 pd-l0"><a href="profile/<?php echo $userid =  $notifdetail->idnumber." " ;?>"><?php echo $notifdetail->fname." ";?><?php echo $notifdetail->lname." ";?></a>Posted on your <?php foreach($getposts as $getpost){?><a href="<?php echo base_url();?>home/profile/<?php echo $userid =  $getpost->to_whom." " ;?>" style="color: red;text-transform: lowercase;">wall.</a><?php } ?>
+                  <a href="" class=""><i class="fa fa-settings"></i></a>
+                    <hr>
+                    <p class="time"><?php $time = new DateTime($notifdetail->datetime);
+                    $date = $time->format('n.j.Y');
+                    $time2 = $time->format('H:i:s');
+                    echo $date." | ".$time2;?></p>
+                  </div>
+                </li>
+                <?php } ?>
+                <?php }?>
+
+
+              </div>
+              <div class="notify-drop-footer text-center">
+                <a href=""><i class="fa fa-eye"></i>See all</a>
+              </div>
+            </ul>
+          </li>
+        
+              <li><a href="<?php echo base_url() ?>home/home"><i class="fa fa-home"> HOME</a></i></li>
+              <li><a href="<?php echo base_url() ?>home/index"><i class="fa fa-user"> PROFILE</a></i></li>
+              <li><a href="<?php echo base_url() ?>home/aboutie"><i class="fa fa-exclamation-circle"> ABOUT</a></i></li>
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown"><b class="caret"></b></a>
                   <ul class="dropdown-menu">
-                    <p><li><a bgcolor="black" href="#">Account Settings</a></li></p>
-                    <li><a href="#" class="button" data-toggle="modal" data-target="#logout">Logout</a></li>
+                    <p><li><a href="<?php echo base_url() ?>home/accsetting"><i class="fa fa-cog"> Edit Profile</i></a></li></p>
+                    <li><a href="#" class="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-cog"> Logout</i></a></li>
             </ul>
           </div>
           </div>
@@ -151,85 +352,211 @@ table, td{
   <figure class="profile-banner">
     <div id="rcorners1">
       <div class="row">
-        <div class="col-lg-10">
-          <img src="<?php echo base_url()?>images/1.jpg" class="img-responsive1" alt=""></button>
-        </div>
-      </div>
-    </div>
+                <div class="col-lg-10">
+                <div class="cover">
+                      <?php foreach($details as $detail){?>
+                       <img src="<?php echo base_url();?>images/usercover<?php echo $detail->idnumber;?>_.jpg" class="img-responsive1" alt=""></button>
+                        <?php }?>
+                      </div>
+                    </div>
+                </div>
+                </div>
   </figure>
+
   <div class="profile-stats">
     <ul>
-      <li>13    <span>Members</span></li>
-      <li>1,354 <span>Files</span></li>
-      <li>32    <span>blabla</span></li>
-      <li>324   <span>blabla</span></li>
+    
+      <li><?php foreach($names as $name){?><?php echo $name->no_members." ";?><?php }?><span>Members</span></li>
+      <li><?php foreach($countfiles as $countfile){?><?php echo $countfile->countfile." ";?><?php }?> <span>Files</span></li>
+      <li><?php foreach($nogrpevents as $nogrpevent){?><?php echo $nogrpevent->nogrpevent." ";?><?php }?><span>Events/Schedules</span></li>
+      
     </ul>
-    <a href="javascript:void(0);" class="status">
-      Add Member
-    </a>
     <a href="" data-toggle="modal" data-target="#myModal1" class="status">Leave Group</a>
   </div><br>
-  <h2>Group Name <small>mo to!</small></h2>
+  <?php foreach($names as $name){?>
+  <h2><a style="color:#26225a" href="<?php echo base_url();?>index.php/home/group/<?php echo $grp_id =  $name->group_id." " ;?>"><?php echo $name->group_name." ";?> </a> </h2>
+  <?php }?>
 </header>
 <div class="info">
-<div class="col-2 menu reply">
+<div class="col-2 menu">
   <ul>
-    <li>ChristineCanimo</li>
-    <li>Info</li>
-    <li>Tnfo</li>
-    <li>info</li>
+    <?php foreach($details as $detail){?>
+    <li>
+    <?php echo $detail->fname." ";?><?php echo $detail->mname." ";?><?php echo $detail->lname." ";?>
+    <li>
+    <?php echo $detail->gender." ";?>
+    </li>
+    <li>
+    <?php echo $detail->bday." ";?>
+    </li>
+    <li>
+    <?php echo $detail->address." ";?>
+    </li>
+    <?php }?></li>
+  </ul>
+<br>
+  <div id="flip" style="cursor: pointer;"><center><h2>Group List</h2></center></div>
+    <div id="panel" class="menu form-control input-md">
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search group.." title="Type in a name">
+<br><br>
+        <table id="myTable" style="width: 250px;">
+        <?php foreach($groups as $group){?>
+          <tr style="padding: 10px"><td>
+            <label><a style="color: black;" href="<?php echo base_url() ?>home/group/<?php echo $grp_id =  $group->group_id." " ;?>"><?php echo $group->group_name." ";?></a></label>
+            </td>
+            </tr>
+            <?php }?>
+            </table>
+    </div>
+      </form>
+  
+</div>
+ <div class="col-8 nav2">
+  <ul>
+    <li><a href="<?php echo base_url() ?>home/group/<?php echo $grp_id =  $name->group_id." " ;?>">Discussions</a></li>
+    <li><a href="<?php echo base_url() ?>home/files/<?php echo $grp_id =  $name->group_id." " ;?>">Files</a></li>
+    <li><a href="<?php echo base_url() ?>home/members/<?php echo $grp_id =  $name->group_id." " ;?>">Members</a></li>
+    <li style="float:right"><a href="edit">Group Info</a></li>
   </ul>
 </div>
-<div class="col-7 nav2">
-<ul>
-  <li><a href="grpfiles">Files</a></li>
-  <li><a href="grpmembers">Members</a></li>
-  <li><a href="friends">blabla</a></li>
-  <li style="float:right"><a href="editgrp">Edit Group</a></li>
-</ul>
-</div>
+
+<div class="col-6 dashboard">
+<div class="col-5 status">
+  <h2><font color="black">Status</h2> <?php foreach($names as $name){?>
+  <form action="<?php echo base_url() ?>index.php/home/grpstatus/<?php echo $grp_id =  $name->group_id." " ;?>" method="POST"> 
+  <?php }?>
+  <input value="" type="hidden" name="grpstat_id" >
+  <?php foreach($names as $name){?>
+  <input type="hidden" name="group_id" value="<?php echo $name->group_id." ";?>"> <?php }?>
+  <?php foreach($idmembers as $idmember){?>
+  <input type="hidden" name="member_id" value ="<?php echo $idmember->member_id." ";?>"> <?php }?>
+  <input type="hidden" name="post_date" value="<?php date_default_timezone_set("Asia/Manila"); echo date("Y/m/d h:i:sa") ?>">
+  <textarea placeholder="ux2 na ni acoe mamatay" cols="59" rows="5" name="text"></textarea>
 <div class="reply">
- <a style="text-align: center; float: left" href="">UPLOAD FILE</a>
+ <input type="submit" value="POST<3">
  </div>
-<div class="col-5 dashboard">
-<div class="col-13 status">
-<h2>Subject</h2><br>
-<p>Chania is the capital of the Chania region on the island of Crete. The city can be divided in two parts, the old town and the modern city.</p>
-  <p>Resize the browser window to see how the content respond to the resizing.</p>
-<p>Chania is the capital of the Chania region on the island of Crete. The city can be divided in two parts, the old town and the modern city.</p>
-  <p>Resize the browser window to see how the content respond to the resizing.</p>
-<p>Chania is the capital of the Chania region on the island of Crete. The city can be divided in two parts, the old town and the modern city.</p>
-  <p>Resize the browser window to see how the content respond to the resizing.</p>
-<div class="col-9 nav2 reply">
-<a href="">Reply</a>
 </div>
+</form>
+
+
+<?php foreach($grpstatus as $grpstatus){?>
+<div class="col-5 status" >
+<table>
+<tr><td><a href ="<?php echo base_url();?>home/profile/<?php echo $userid =  $grpstatus->idnumber." " ;?>">
+<figure class="dp" 
+    style="background-image: url('<?php echo base_url();?>images/user<?php echo $grpstatus->idnumber;?>_.jpg')">
+  </figure></td><td>
+<h3>&nbsp;&nbsp;&nbsp;<a href ="<?php echo base_url();?>home/profile/<?php echo $userid =  $grpstatus->idnumber." " ;?>">
+<?php echo $grpstatus->fname." ";?><?php echo $grpstatus->mname." ";?><?php echo $grpstatus->lname." ";?></h3></a>
+<h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $grpstatus->post_date." ";?></h5>
+</td></tr></table>
+<br><h4>
+<?php echo $grpstatus->text." ";?></h4>
+<hr style="margin-bottom: 5px;border-top: #000 1px solid;">
+<div class="container">
+<a data-toggle="collapse" data-parent="#accordion" data-target="#comment<?php echo $grpstatus->grpstat_id;?>"><i class="fa fa-comments-o" style="font-size:15px;color:red;cursor: pointer;"> Comments</i></a>
 </div>
+<div id="comment<?php echo $grpstatus->grpstat_id;?>" class="panel-collapse collapse">
+    <hr style="margin-bottom: 10px;margin-top: 5px;border-top: #000 1px solid;">
+<font color="black"><?php foreach($names as $name){?>
+            <form action="<?php echo base_url() ?>index.php/home/commentgrp/<?php echo $grp_id =  $name->group_id." " ;?>" method="POST"><?php }?>
+    <strong><?php echo $detail->fname." ";?></strong>
+    <input type="hidden" name="comment_id" value=""><?php foreach($idmembers as $idmember){?>
+    <input type="hidden" name="member_id" value="<?php echo $idmember->member_id." ";?>"><?php }?>
+    <?php foreach($names as $name){?>
+    <input type="hidden" name="group_id" value="<?php echo $name->group_id;?>"><?php }?>
+    <input type="hidden" name="grpstat_id" value="<?php echo $grpstatus->grpstat_id;?>">
+    <input type="hidden" name="grpcomment_date" value="<?php date_default_timezone_set("Asia/Manila"); echo date("Y/m/d"); ?>">
+    <input type="hidden" name="grpcomment_time" value="<?php echo date("h:i:sa"); ?>">
+
+    <input type="text" id="comments<?php echo $grpstatus->grpstat_id;?>" name="grp_comment" placeholder="Write a comment" style="width: 250px">
+    <a data-toggle="collapse" data-parent="#accordion" href="#smiley<?php echo $grpstatus->grpstat_id;?>">
+    <img src="<?php echo base_url();?>images/smileys/emoticon.png" style=" width: 20px;height: 20px;vertical-align: text-bottom;"></a>
+    <input type="submit" style="position: absolute; left: -9999px">
+    <div id="smiley<?php echo $grpstatus->grpstat_id;?>" class="collapse" style="float: right;padding-top: 5px;">
+      <?php echo $smiley_tables; ?></div>
+      </form>
+    <hr style="margin-bottom: 10px;margin-top: 10px;">
+
+    <?php foreach($comments as $comment){?>
+        <?php $a = $grpstatus->grpstat_id; $b = $comment->grpstat_id; if($a==$b) { ?>
+    <table width="430px">
+    <tr><td style="padding-right: 5px;" width="40px">
+    <img src="<?php echo base_url();?>images/user<?php echo $comment->idnumber;?>_.jpg" class="img-responsive1" alt="" style="width: 40px;height: 40px;"></td>
+    <td>
+        <font color="#756220"><strong>
+    <?php $a = $grpstatus->grpstat_id; $b = $comment->grpstat_id; if($a==$b) { echo $comment->fname." ";?><?php echo $comment->lname." ";}?></strong></font>
+    <?php $a = $grpstatus->grpstat_id; $b = $comment->grpstat_id; if($a==$b) { echo $comment->grp_comment." ";}?>
+        <h6 style="float: right;margin: 0px;margin-right: 12px; font-size: 13px;">
+    <?php $a = $grpstatus->grpstat_id; $b = $comment->grpstat_id; if($a==$b) { echo $comment->grpcomment_date." ";?>| <?php echo $comment->grpcomment_time." ";}?></h6> </td></tr></table> 
+    
+        <hr style="margin-bottom: 5px;margin-top: 5px;">  
+    <?php } ?>
+    <?php }?>
+    </div>
+</div>
+<?php }?>
 </div>
 
+
+
+<div class="col-3">
 <div class="col-3 rightside">
+<font color="black">
 <p style="float: right"><a href="#" class="button" data-toggle="modal" data-target="#event">Create Event</a></p>
-<br>
-<p>ANO ILALAGAY DITO?</p>
-<h4>Chania is the capital of the Chania region on the island of Crete. The city can be divided in two parts, the old town and the modern city.
- Resize the browser window to see how the content respond to the resizing.
-Chania is the capital of the Chania region on the island of Crete. The city can be divided in two parts, the old town and the modern city.
-  Resize the browser window to see how the content respond to the resizing.
-Chania is the capital of the Chania region on the island of Crete. The city can be divided in two parts, the old town and the modern city.
-  Resize the browser window to see how the content respond to the resizing.</h4>
+<br><br>
+<div class="form-group">
+            <font color="black"><?php foreach($names as $name){?>
+            <form action="<?php echo base_url() ?>index.php/home/addmem/<?php echo $grp_id =  $name->group_id." " ;?>" method="POST"><?php }?>
+            
+          <div class="form-group" style="margin-bottom: 0px;">
+          <div id="taas"><h3>Add Members</h3><br>
+          <input type= text name="name" placeholder="Enter Name" style="width: 200px;">
+          <?php foreach($members as $member){?>
+          <input type="hidden" name="member_id" value ="" />
+          <input type="hidden" name="idnumber" value =""/><?php }?>
+            <?php foreach($names as $name){?>
+          <input type="hidden" value="<?php echo $name->group_id;?>" name="group_id"/>
+              <?php }?>
+               <br><br>
+            <input type="submit" class="btn btn-primary" value="Add">
+          </div> 
+            </form>
+ 
+        </div>
 </div>
-
+</div>
 <div class="col-3 rightside">
-<p><font color="darkgray">Anything2</p><br>
-<h4>Chania is the capital of the Chania region on the island of Crete. The city can be divided in two parts, the old town and the modern city.
-  Resize the browser window to see how the content respond to the resizing.</p>
-Chania is the capital of the Chania region on the island of Crete. The city can be divided in two parts, the old town and the modern city.
- Resize the browser window to see how the content respond to the resizing.</p>
-Chania is the capital of the Chania region on the island of Crete. The city can be divided in two parts, the old town and the modern city.
-  Resize the browser window to see how the content respond to the resizing.</p></h4>
+
+<br>
+<P>Events</P>
+<?php foreach($events as $event){?>
+<div class="col-2 events">
+<h4><b>Event Name:</b><?php echo $event->event_name." ";?>
+<br><b>Event Place:</b><?php echo $event->event_place." ";?>
+<br><b>Date:</b><?php echo $event->event_date." ";?>
+<br><b>Event Creator:</b><?php echo $event->event_creator." ";?></h4>
 </div>
+<?php }?>
+</div>
+</div>
+<!-- Modal -->
+  <div class="modal fade" id="addmem" role="dialog">
+    <div class="modal-dialog3">
+
+       <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <div class="modal-body">
+          
+        </div>
+        </div>
 
 </div>
-
+</div>
  <!-- Modal -->
   <div class="modal fade" id="myModal1" role="dialog">
     <div class="modal-dialog1">
@@ -244,7 +571,7 @@ Chania is the capital of the Chania region on the island of Crete. The city can 
          <p>Are you sure you want to leave this group?</p>
         </div>
         <div class="modal-footer">
-          <a href="index" class="btn btn-primary">Yes</a></button>
+          <a href="<?php echo base_url();?>index.php/home/leavegrp/<?php echo $grp_id =  $name->group_id." " ;?>" class="btn btn-primary">Yes</a></button>
           <a class="btn btn-primary" data-dismiss="modal">No</a></button>
         </div>
       </div>
@@ -253,7 +580,7 @@ Chania is the capital of the Chania region on the island of Crete. The city can 
 
  <!-- Modal -->
   <div class="modal fade" id="logout" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog1">
 
        <!-- Modal content-->
       <div class="modal-content">
@@ -266,7 +593,7 @@ Chania is the capital of the Chania region on the island of Crete. The city can 
         </div>
         <div class="modal-footer">
           <Center>
-            <a href="logout" class="btn btn-primary">Yes</a></button>
+            <a href="<?php echo base_url();?>home/logout" class="btn btn-primary">Yes</a></button>
             <a class="btn btn-primary" data-dismiss="modal">No</a></button>
           </Center>
         </div>
@@ -288,10 +615,15 @@ Chania is the capital of the Chania region on the island of Crete. The city can 
         <div class="modal-body">
           <div class="form-group">
             <font color="black">
-            <form action="" method="POST">  
+            <form action="<?php echo base_url();?>index.php/home/create_event/<?php echo $grp_id =  $name->group_id." " ;?>" method="POST">
+            <input type="hidden" value="<?php echo $this->session->userdata('idnumber'); ?>" name="idnumber">  
             <input type="hidden" value="" name="event_id">
-            <input type="hidden" value="" name="event_creator">
-            <input type="hidden" value="" name="group_name">
+            <?php foreach($details as $detail){?>
+            <input type="hidden" value="<?php echo $detail->fname." ";?><?php echo $detail->mname." ";?><?php echo $detail->lname." ";?>" name="event_creator"><?php }?>
+            <?php foreach($names as $name){?>
+            <input type="hidden" value="<?php echo $name->group_name;?>" name="group_name">
+            <input type="hidden" name="member_id" value="<?php echo $name->member_id;?>">  
+            <input type="hidden" value="<?php echo $name->group_id;?>" name="group_id"><?php }?>
             <label>Event Name:</label>
             <input type="text" name="event_name" class="form-control input-md" placeholder="Name of Event">
           </div>
@@ -303,17 +635,37 @@ Chania is the capital of the Chania region on the island of Crete. The city can 
 
           <div class="form-group">
             <label>Event Date:</label>
-            <input type="date" name="event_date" class="form-control input-md" placeholder="Date of event">
+            <input type="date" name="event_date" class="form-control input-md" min="2017-03-25" placeholder="Date of event">
           </div>
 
           <div class="modal-footer">
-            <center><a href="logout" class="btn btn-default">Create</a></button></center>
+            <center><input type="submit" class="btn btn-default" value="CREATE"></center>
           </div>
         </div>
       </div>
     </div>
   </div>
 
+
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
   <script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
   <script src="js/index.js"></script>
  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

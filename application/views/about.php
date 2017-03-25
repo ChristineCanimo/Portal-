@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Home</title>
+    <title>About Us</title>
     <style> 
 #rcorners {
     background: #000;
@@ -33,6 +33,9 @@
     <link href="<?php echo base_url()?>css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
+    <link href="<?php echo base_url()?>css/gridprofiles.css" rel="stylesheet">
+    
+    <link href="<?php echo base_url()?>css/notification.css" rel="stylesheet">
     <link href="<?php echo base_url()?>css/design.css" rel="stylesheet">
     <link href="<?php echo base_url()?>css/fonts.css" rel="stylesheet">
     
@@ -62,8 +65,9 @@
     margin-right: 10px;  
 }
 #rcorners2 {
+    border: 2px #000 solid;
     border-radius: 25px;
-    background: #eee;
+    background: #fcf8e3;
     padding: 20px; 
     width: 100%;
     height: 100%;
@@ -97,42 +101,114 @@ table, td{
         <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top">
       <div id="rcorners">
-          <div class="container">
-              <!-- Brand and toggle get grouped for better mobile display -->
-              <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                  <span class="sr-only">Toggle Navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
-              </div>
-              <a class="navbar-brand page-scroll" href="studie"><b>StockOverflowing</b></a>
-              <ul class="nav navbar-nav navbar-left">
-                <form class="navbar-form" role="search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search" name="q">
-                  <div class="input-group-btn">
-                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                  </div>
-                </form>
-              </ul>
-              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                  <li><a href="studie"><i class="fa fa-user"> PROFILE</a></i></li>
-                  <li><a href="#"><i class="fa fa-globe"> NOTIFICATIONS</a></i></li>
-                  <li class="active"><a href="aboutie"><i class="fa fa-exclamation-circle"> ABOUT</a></i></li>
-                  <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown"><b class="caret"></b></a>
-                  <ul class="dropdown-menu">
-                    <p><li><a bgcolor="black" href="accsetting">Account Settings</a></li></p>
-                    <li><a bgcolor="black" href="#" class="button" data-toggle="modal" data-target="#myModal">Logout</a></li>
-                  </ul>
-                </ul>
-              </div>
+        <div class="container">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+              <span class="sr-only">Toggle Navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
           </div>
+          <a class="navbar-brand page-scroll" href="home"><b>StockOverflowing</b></a>
+          <ul class="nav navbar-nav navbar-left">
+            <form class="navbar-form" role="search" action="<?php echo base_url(); ?>home/search" method="post">
+              <div class="input-group" style="width:205%">
+                <input type="text" class="form-control" placeholder="Search" name="q">
+                <div class="input-group-btn">
+                  <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
+              </div>
+            </form>
+          </ul>
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><i style="font-size:20px" class="fa fa-globe"></i></a>
+                <ul class="dropdown-menu notify-drop">
+                  <div class="notify-drop-title">
+                    <div class="row">
+                      <?php foreach($countnotifs as $count){?>
+                      <div class="col-md-6 col-sm-6 col-xs-6">Notifications (<b><?php echo $count->count;?></b>)</div>
+                      <?php }?>
+                      <div class="col-md-6 col-sm-6 col-xs-6 text-right"><a href="" class="rIcon allRead" data-tooltip="tooltip" data-placement="bottom" title="tümü okundu."><i class="fa fa-dot-circle-o"></i></a></div>
+                    </div>
+                  </div>
+                  <div class="drop-content">
+                  <?php foreach($notifdetails as $notifdetail){?>
+                  <?php if($notifdetail->type=='comment') { ?>
+
+                  <li>
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                      <div class="notify-img"><img src="<?php echo base_url();?>images/user<?php echo $notifdetail->idnumber;?>_.jpg" alt=""></div>
+                    </div>
+                    <div class="col-md-9 col-sm-9 col-xs-9 pd-l0"><a href="profile/<?php echo $userid =  $notifdetail->idnumber." " ;?>"><?php echo $notifdetail->fname." ";?><?php echo $notifdetail->lname." ";?></a> commented on your<a href="<?php echo base_url();?>index.php/home/post_commented/28" style="color: red;text-transform: lowercase;"> post</a> in BSIS
+                    <a href="" class=""><i class="fa fa-settings"></i></a>
+                      <hr>
+                      <p class="time"><?php $time = new DateTime($notifdetail->datetime);
+                      $date = $time->format('n.j.Y');
+                      $time2 = $time->format('H:i:s');
+                      echo $date." | ".$time2;?></p>
+                    </div>
+                  </li>
+                  <?php } ?>
+
+                  <?php if($notifdetail->type=='member') { ?>
+
+                  <li>
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                      <div class="notify-img"><img src="<?php echo base_url();?>images/user<?php echo $notifdetail->idnumber;?>_.jpg" alt=""></div>
+                    </div>
+                    <div class="col-md-9 col-sm-9 col-xs-9 pd-l0"><a href="profile/<?php echo $userid =  $notifdetail->idnumber." " ;?>"><?php echo $notifdetail->fname." ";?><?php echo $notifdetail->lname." ";?></a>Added you to a group <a href="<?php echo base_url();?>index.php/home/post_commented/28" style="color: red;text-transform: lowercase;">groupname</a> in BSIS
+                    <a href="" class=""><i class="fa fa-settings"></i></a>
+                      <hr>
+                      <p class="time"><?php $time = new DateTime($notifdetail->datetime);
+                      $date = $time->format('n.j.Y');
+                      $time2 = $time->format('H:i:s');
+                      echo $date." | ".$time2;?></p>
+                    </div>
+                  </li>
+                  <?php } ?>
+
+                  <?php if($notifdetail->type=='post') { ?>
+
+                  <li>
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                      <div class="notify-img"><img src="<?php echo base_url();?>images/user<?php echo $notifdetail->idnumber;?>_.jpg" alt=""></div>
+                    </div>
+                    <div class="col-md-9 col-sm-9 col-xs-9 pd-l0"><a href="profile/<?php echo $userid =  $notifdetail->idnumber." " ;?>"><?php echo $notifdetail->fname." ";?><?php echo $notifdetail->lname." ";?></a>Posted on your wall <a href="<?php echo base_url();?>index.php/home/post_commented/28" style="color: red;text-transform: lowercase;">posttitle</a> in BSIS
+                    <a href="" class=""><i class="fa fa-settings"></i></a>
+                      <hr>
+                      <p class="time"><?php $time = new DateTime($notifdetail->datetime);
+                      $date = $time->format('n.j.Y');
+                      $time2 = $time->format('H:i:s');
+                      echo $date." | ".$time2;?></p>
+                    </div>
+                  </li>
+                  <?php } ?>
+                  <?php }?>
+                </div>
+                <div class="notify-drop-footer text-center">
+                  <a href="#">See all</a>
+                </div>
+              </ul>
+            </li>
+            <li><a href="home"><i class="fa fa-home"> HOME</i></a></li>
+            <li><a href="index"><i class="fa fa-user"> PROFILE</i></a></li>
+            <li class="active"><a href="aboutie"><i class="fa fa-exclamation-circle"> ABOUT</i></a></li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown"><b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <p><li><a href="accsetting"><i class="fa fa-cog"> Edit Profile</i></a></li></p>
+                <li><a href="#" class="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-sign-out"> Logout</i></a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
       </div>
-    </nav>
+    </div>
+  </nav>
       
     <div class="container" >
       <div class="row">
@@ -146,7 +222,7 @@ table, td{
                 <h3 class="section-subheading text-muted">StockOverflowing</h3><br>
               </div>
 
-              <center><p>Welcome to StockOverflowing where you can share and get files and documents. Connect with anyone <br>and discuss anything you want.</p></center>
+              <center><h4>Welcome to StockOverflowing where you can share and get files and documents. Connect with anyone <br>and discuss anything you want.</h4></center>
             </div>
           </div>
         </div>
@@ -164,67 +240,59 @@ table, td{
             </div>
             <br>
 
-                 <div class="row">
-                 <div class="col-xs-3"></div>
-                <div class="col-lg-6">
-                    <div class="team-member">
-                       <h4><button type="button" class="btn btn-lg" data-toggle="modal" data-target="#myModal3"><img src="<?php echo base_url()?>images/1.jpg" class="img-responsive" alt=""></button></h4></center> 
-                       <h1>TEAM 4 </h1>
-                      </div>
-                    </div>
-                </div>
+                 
 
             <div class="row">
-                <div class="col-sm-5">
+                <div class="col-2" style="padding: 10px">
                     <div class="team-member">
-                       <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal2"><img src="<?php echo base_url()?>images/imgstudent.png" class="img-responsive" alt=""></button> <h4> Ms. Stemely Joy Bertolano</h4>
+                       <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal2"><img src="<?php echo base_url()?>images/stemely.jpg" class="img-responsive" alt=""></button> <h4> Ms. Stemely Joy Bertolano</h4>
             <br>
                         <ul class="list-inline social-buttons">
                             <li><a href="#"><i class="fa fa-twitter"></i></a>
                             </li>
-                            <li><a href="#"><i class="fa fa-facebook"></i></a>
+                            <li><a href="https://www.facebook.com/stemely.bertolano.3"><i class="fa fa-facebook"></i></a>
                             </li>
                         </ul>
                     </div>
                 </div>
 
                  <div class="row">
-                <div class="col-sm-5">
+                <div class="col-2" style="padding: 10px">
                     <div class="team-member">
-                       <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal3"><img src="<?php echo base_url()?>images/tin.jpg" class="img-responsive" alt=""></button> <h4>Ms. Christine Canimo</h4>
+                       <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal3"><img src="<?php echo base_url()?>images/christine.jpg" class="img-responsive" alt=""></button> <h4>Ms. Christine Canimo</h4>
             <br>
                         <ul class="list-inline social-buttons">
-                            <li><a href="#"><i class="fa fa-twitter"></i></a>
+                            <li><a href="https://twitter.com/canimochristine"><i class="fa fa-twitter"></i></a>
                             </li>
-                            <li><a href="#"><i class="fa fa-facebook"></i></a>
+                            <li><a href="https://www.facebook.com/canimochristine"><i class="fa fa-facebook"></i></a>
                             </li>
                         </ul>
                     </div>
                 </div>
 
                  <div class="row">
-                <div class="col-sm-5">
+                <div class="col-2" style="padding: 10px">
                     <div class="team-member">
-                       <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal4"><img src="<?php echo base_url()?>images/imgstudent.png" class="img-responsive" alt=""></button><h4> Mr. John Robert Capistrano</h4>
+                       <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal4"><img src="<?php echo base_url()?>images/robert.jpg" class="img-responsive" alt=""></button><h4> Mr. John Robert Capistrano</h4>
             <br>
                         <ul class="list-inline social-buttons">
-                            <li><a href="#"><i class="fa fa-twitter"></i></a>
+                            <li><a href="https://twitter.com/rowyerbert"><i class="fa fa-twitter"></i></a>
                             </li>
-                            <li><a href="#"><i class="fa fa-facebook"></i></a>
+                            <li><a href="https://www.facebook.com/arteezyfanboy"><i class="fa fa-facebook"></i></a>
                             </li>
                         </ul>
                     </div>
                 </div>
 
                  <div class="row">
-                <div class="col-sm-5">
+                <div class="col-2" style="padding: 10px">
                     <div class="team-member">
-                       <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal5"><img src="<?php echo base_url()?>images/imgteacher.png" class="img-responsive" alt=""></button><h4> Mr. John Patrick Guzman</h4>
+                       <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal5"><img src="<?php echo base_url()?>images/patrick.jpg" class="img-responsive" alt=""></button><h4> Mr. John Patrick Guzman</h4>
             <br>
                         <ul class="list-inline social-buttons">
-                            <li><a href="#"><i class="fa fa-twitter"></i></a>
+                            <li><a href="https://twitter.com/shitbrix123"><i class="fa fa-twitter"></i></a>
                             </li>
-                            <li><a href="#"><i class="fa fa-facebook"></i></a>
+                            <li><a href="https://www.facebook.com/patrick.guzman123"><i class="fa fa-facebook"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -238,7 +306,7 @@ table, td{
 
 <!-- Modal -->
   <div class="modal" id="myModal2" role="dialog">
-    <div class="modal-dialog2">
+    <div class="modal-dialog1">
 
        <!-- Modal content-->
       <div class="modal-content">
@@ -262,7 +330,7 @@ table, td{
 
   <!-- Modal -->
   <div class="modal" id="myModal3" role="dialog">
-    <div class="modal-dialog2">
+    <div class="modal-dialog1">
 
        <!-- Modal content-->
       <div class="modal-content">
@@ -286,7 +354,7 @@ table, td{
 
   <!-- Modal -->
   <div class="modal" id="myModal4" role="dialog">
-    <div class="modal-dialog2">
+    <div class="modal-dialog1">
 
        <!-- Modal content-->
       <div class="modal-content">
@@ -309,7 +377,7 @@ table, td{
             </div> 
             <!-- Modal -->
   <div class="modal" id="myModal5" role="dialog">
-    <div class="modal-dialog2">
+    <div class="modal-dialog1">
 
        <!-- Modal content-->
       <div class="modal-content">

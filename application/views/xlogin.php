@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="form-group">
-                      <center><span><a href="#" class="button" data-toggle="modal" data-target="#myModal">Logout</a></span></center>
+                      <center><span><a href="balikmo" class="button">Go Back</a></span></center>
                     </div>
                   </form>
                 </div>

@@ -18,14 +18,14 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <style>
 .modal-dialog1 {
-    width: 500px;
-    margin-left: 550px;
+    width: 500px; 
+    margin-left: 430px;
     margin-top: 100px;
     margin-bottom: 30px;
 }
 .modal-dialog2 {
     width: 400px;
-    margin-left: 550px;
+    margin-left: 500px;
     margin-top: 150px;
 }
 </style>
@@ -92,6 +92,7 @@
         <div class="modal-body">
           <div class="form-group">
             <form action="index.php/login_c/register_validation" method="POST">
+
             <label>Username:</label>
             <input type="text" class="form-control input-md" placeholder="Enter Username" name="username" required/>
           </div>
@@ -100,17 +101,13 @@
           <input type="password" class="form-control input-md" placeholder="Enter Password" name="password" required/>
              
           <label>First Name:</label>
-          <input type="text" class="form-control input-md" placeholder="Enter First Name" name="firstname" required/>
-             
+          <input type="text" class="form-control input-md" placeholder="Enter First Name" name="fname" required/>
+
           <label>Middle Name:</label>
-          <div class="form-group">
-            <input type="text" class="form-control input-md" placeholder="Enter Middle Name" name="mname" required/>
-          </div>
+          <input type="text" class="form-control input-md" placeholder="Enter Middle Name" name="mname" required/>
 
           <label>Last Name:</label>
-          <div class="form-group">
-            <input type="text" class="form-control input-md" placeholder="Enter Last Name" name="lastname" required/>
-          </div>
+          <input type="text" class="form-control input-md" placeholder="Enter Last Name" name="lname" required/>
 
           <label>City Address:</label>
           <div class="form-group">
@@ -139,6 +136,9 @@
           <div class="form-group">
             <input type="date" class="form-control input-md" placeholder="Enter Birthday" name="bday" required/>
           </div>
+
+            <input type="hidden" name="date_added" value="<?php date_default_timezone_set("Asia/Manila"); echo date("Y/m/d h:i:sa") ?>"/>
+            <input type="hidden" name="date_updated" value="<?php date_default_timezone_set("Asia/Manila"); echo date("Y/m/d h:i:sa") ?>"/>
 
           <div class="form-group">
             <input id="myModal" type="submit" class="btn btn-block btn-lg btn-primary" value="Sign up"/>

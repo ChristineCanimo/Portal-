@@ -158,14 +158,107 @@ header>h2 {
 .reply a:link, a:visited {
     background-color: #fed136;
     color: black;
-    padding: 10px 15px;
+    padding: 5px 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.2), 1px 1px 4px rgba(0,0,0,0.3);
 }
 
 
 .reply a:hover, a:active {
-    background-color: black;
-    color: white;
+    background-color: #fed136;
+    color: black;
+}
+
+.reply input {
+    background-color: #fed136;
+    color: black;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+
+}
+.reply input:link, input:visited {
+    background-color: #fed136;
+    color: black;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.2), 1px 1px 4px rgba(0,0,0,0.3);
+}
+
+.reply a.visited {
+    background-color: #fed136;
+    color: red;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.2), 1px 1px 4px rgba(0,0,0,0.3);
+}
+
+.reply input:hover, input:active {
+    background-color: #fed136;
+    color: black;
+}
+
+.status-picture {
+  background-position: center;
+  background-size: cover;
+  border-radius: 30%;
+  padding-bottom: 10px;
+  box-shadow: inset 1px 1px 3px rgba(0,0,0,0.2), 1px 1px 4px rgba(0,0,0,0.3);
+  height: 65px;
+  position: relative;
+  width: 65px;
+}
+
+.cover img {
+  width: 1340px;
+  height: 410px;
+  vertical-align:baseline;
+}
+.addmem ol {
+  margin-left: 20px;
+  padding: 0;
+  width: 200px;
+
+}
+
+/* Style the list items */
+.addmem ol li {
+  cursor: pointer;
+  position: relative;
+  padding: 10px 6px 4px 10px;
+  font-size: 15px;
+  transition: 0.2s;
+  
+  /* make the list items unselectable */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+/* Darker background-color on hover */
+.addmem ol li:hover {
+  background: #ddd;
+}
+
+
+/* Style the close button */
+.addmem .close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 10px 14px 10px 14px
+}
+
+.addmem .close:hover {
+  background-color: #f44336;
+  color: white;
 }
